@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <h1>Создание публикации</h1>
+
+    <div class="form-control"
+    [ngClass]="{invalid: form.get('title')?.touched && form.get('title')?.invalid}">
+        <label for="title">Название публикации</label>
+        <input id="title" type="text" formControlName="title">
+        <div 
+        *ngIf="form.get('title')?.touched && form.get('title')?.invalid"
+        class="validation">
+            <small *ngIf="form.get('title')?.hasError('required')">Нет названия публикации</small>
+        </div>
+    </div>
+
+    <div class="form-control">
+        <label>Текст публикации</label>
+        <quill-editor formControlName="text"></quill-editor>
+    </div>
+
+    <div class="form-control"
+    [ngClass]="{invalid: form.get('author')?.touched && form.get('author')?.invalid}">
+        <label for="author">Автор</label>
+        <input id="author" type="text" formControlName="author">
+        <div 
+        *ngIf="form.get('author')?.touched && form.get('author')?.invalid"
+        class="validation">
+            <small *ngIf="form.get('author')?.hasError('required')">Не указан автор</small>
+        </div>
+    </div>
+
+    <button 
+        type="submit"
+        class="btn btn-block btn-dark"
+        [disabled]="form.invalid"
+    >Опубликовать</button>
+</form>
